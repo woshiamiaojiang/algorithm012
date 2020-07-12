@@ -1398,26 +1398,43 @@ class Solution {
 （Facebook 在 1 年内面试中考过）
 
 ```java
+/*
+    构造双端队列。用链表，两个指针。两个头尾哨兵
+ */
+class DoubleListNode {
+    DoubleListNode pre;             // 前指针
+    DoubleListNode next;            // 后指针
+    int val;                        // 值
+    public DoubleListNode(int val) {
+        this.val = val;
+    }
+}
+
 class MyCircularDeque {
-    int size;
-    int k;
-    DoubleListNode head;
-    DoubleListNode tail;
-    /** Initialize your data structure here. Set the size of the deque to be k. */
+    int size;               // 实际个数
+    int k;                  // 开辟大小
+    DoubleListNode head;    // 虚拟头节点哨兵
+    DoubleListNode tail;    // 虚拟尾节点哨兵
+
+    /**
+     * 初始化，大小为k。
+     */
     public MyCircularDeque(int k) {
-        head = new DoubleListNode(-1);
-        tail = new DoubleListNode(-1);
-        head.pre = tail;
-        tail.next = head;
+        head = new DoubleListNode(-1);  // 头节点，默认值-1
+        tail = new DoubleListNode(-1);  // 为节点，默认值-1
+        head.pre = tail;                    // 头节点前指针指向尾
+        tail.next = head;                   // 尾节点后指针指向头
         this.k = k;
         this.size = 0;
     }
-    
-    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+
+    /**
+     * 将一个元素添加到双端队列头部。 如果操作成功返回 true。
+     */
     public boolean insertFront(int value) {
-        if (size == k)
-            return false;
-        DoubleListNode node = new DoubleListNode(value);
+        if (isFull()) return false;                        // 容量不够，返回false
+        DoubleListNode node = new DoubleListNode(value);    // 创造新节点
+        // 新节点后指针指向头。新节点前指针指向头节点的前一个。头节点的前一个后指针指向当前节点。头节点的前指针指向新节点。
         node.next = head;
         node.pre = head.pre;
         head.pre.next = node;
@@ -1425,11 +1442,12 @@ class MyCircularDeque {
         size++;
         return true;
     }
-    
-    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+
+    /**
+     * 将一个元素添加到双端队列尾部。如果操作成功返回 true。
+     */
     public boolean insertLast(int value) {
-        if (size == k)
-            return false;
+        if (isFull()) return false;
         DoubleListNode node = new DoubleListNode(value);
         node.next = tail.next;
         tail.next.pre = node;
@@ -1438,54 +1456,55 @@ class MyCircularDeque {
         size++;
         return true;
     }
-    
-    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+
+    /**
+     * 从双端队列头部删除一个元素。 如果操作成功返回 true。
+     */
     public boolean deleteFront() {
-        if (size == 0)
-            return false;
-        head.pre.pre.next = head;
-        head.pre = head.pre.pre;
+        if (isEmpty()) return false;    // 元素空了，返回false
+        head.pre.pre.next = head;       // 头节点的前前一个后指针指向头节点
+        head.pre = head.pre.pre;        // 头节点的前指针指向头节点的前前一个
         size--;
         return true;
     }
-    
-    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+
+    /**
+     * 从双端队列尾部删除一个元素。如果操作成功返回 true。
+     */
     public boolean deleteLast() {
-        if (size == 0)
-            return false;
+        if (isEmpty()) return false;
         tail.next.next.pre = tail;
         tail.next = tail.next.next;
         size--;
         return true;
     }
-    
-    /** Get the front item from the deque. */
+
+    /**
+     * 从双端队列头部获得一个元素。如果双端队列为空，返回 -1。
+     */
     public int getFront() {
         return head.pre.val;
     }
-    
-    /** Get the last item from the deque. */
+
+    /**
+     * 获得双端队列的最后一个元素。 如果双端队列为空，返回 -1。
+     */
     public int getRear() {
         return tail.next.val;
     }
-    
-    /** Checks whether the circular deque is empty or not. */
+
+    /**
+     * 检查双端队列是否为空。
+     */
     public boolean isEmpty() {
         return size == 0;
     }
-    
-    /** Checks whether the circular deque is full or not. */
+
+    /**
+     * 检查双端队列是否满了。
+     */
     public boolean isFull() {
         return size == k;
-    }
-}
-
-class DoubleListNode {
-    DoubleListNode pre;
-    DoubleListNode next;
-    int val;
-    public DoubleListNode(int val) {
-        this.val = val;
     }
 }
 ```
@@ -1499,25 +1518,28 @@ class DoubleListNode {
 （亚马逊、字节跳动、高盛集团、Facebook 在半年内面试常考）
 
 ```java
-public int trap(int[] A){
-    int a=0;
-    int b=A.length-1;
-    int max=0;
-    int leftmax=0;
-    int rightmax=0;
-    while(a<=b){
-        leftmax=Math.max(leftmax,A[a]);
-        rightmax=Math.max(rightmax,A[b]);
-        if(leftmax<rightmax){
-            max+=(leftmax-A[a]);       // leftmax is smaller than rightmax, so the (leftmax-A[a]) water can be stored
-            a++;
+package com.example.demo;
+
+import java.util.Stack;
+
+public class Solution {
+    public int trap(int[] height) {
+        // 存索引下标
+        Stack<Integer> stack = new Stack<>();
+        int current = 0, sum = 0;
+        while (current < height.length) {
+            // 如果栈不空并且当前柱子高度大于栈顶柱子的高度，就进入循环
+            while (!stack.empty() && height[current] > height[stack.peek()]) {
+                int top = stack.pop();                                                  // 取出栈顶元素的索引
+                if (stack.empty()) break;                                               // 栈空就结束
+                int distance = current - stack.peek() - 1;                              // 两个柱子之间的距离
+                int min = Math.min(height[current], height[stack.peek()] - height[top]);// 取当前柱子和前两个柱子高度差
+                sum += distance * min;
+            }
+            stack.push(current++);                                                      // 当前柱子索引入栈
         }
-        else{
-            max+=(rightmax-A[b]);
-            b--;
-        }
+        return sum;
     }
-    return max;
 }
 ```
 
