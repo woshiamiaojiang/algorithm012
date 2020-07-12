@@ -657,7 +657,7 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
             initFromCollection(c);
         }
     }
-	// 根据集合初始化元素
+
     private void initElementsFromCollection(Collection<? extends E> c) {
         Object[] a = c.toArray();
         // If c.toArray incorrectly doesn't return Object[], copy it.
@@ -674,11 +674,13 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
     // 根据给定集合初始值队列数组
     private void initFromCollection(Collection<? extends E> c) {
         initElementsFromCollection(c);
+        // 构建最大堆
         heapify();
     }
     // 虚拟机能开辟的最大数组
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
     // 数组扩容
+    // 时间复杂度O(logN)
     private void grow(int minCapacity) {
         int oldCapacity = queue.length;
         // 不足64。扩容两倍+2。超过64，扩容1.5倍。
@@ -688,6 +690,7 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
         // overflow-conscious code
         if (newCapacity - MAX_ARRAY_SIZE > 0)
             newCapacity = hugeCapacity(minCapacity);
+        // 将原来的是数组拷贝到新数组
         queue = Arrays.copyOf(queue, newCapacity);
     }
 
@@ -702,7 +705,8 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
     public boolean add(E e) {
         return offer(e);
     }
-
+    // 判断数组是否需要扩容，需要则调用grow犯法
+    // 插入元素后，可能破坏堆的平衡，调用siftUp（上滤）方法调整堆至平衡
     public boolean offer(E e) {
         // 添加元素为空，抛异常
         if (e == null)
@@ -776,7 +780,8 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
     public Iterator<E> iterator() {
         return new Itr();
     }
-
+    // 普通数组的遍历
+    // 内部类Itr，利用curosr指针迭代内部数组queue
     private final class Itr implements Iterator<E> {
 
         private int cursor = 0;
@@ -842,6 +847,7 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
         size = 0;
     }
 
+    // 删除
     public E poll() {
         if (size == 0)
             return null;
@@ -874,23 +880,29 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
         }
         return null;
     }
-    // 与上层元素交换
+    // 自底向上，不断比较、交换
     private void siftUp(int k, E x) {
         if (comparator != null) // 用自定义比较器
             siftUpUsingComparator(k, x);
         else
             siftUpComparable(k, x); // 用自然序比较器
     }
-
+    // 在数组k的位置插入x
+    // 把x赋值给key
+    // 不断比较key和k的父节点e（queue[(k-1)/2]）的关系
+    // 1、若key<e，则queue[k]=e，k回溯至e
+    // 2、若key>=e捉着k已经到达根节点，则结束循环
+    // queue[k]=e
+    // 时间复杂度O(logn)
     private void siftUpComparable(int k, E x) { // k数组大小，x添加元素
-        Comparable<? super E> key = (Comparable<? super E>) x;
-        while (k > 0) {
-            int parent = (k - 1) >>> 1;
-            Object e = queue[parent];
-            if (key.compareTo((E) e) >= 0)
+        Comparable<? super E> key = (Comparable<? super E>) x; // 把x赋值给key
+        while (k > 0) { // 当k不是根节点
+            int parent = (k - 1) >>> 1; // 取出k父节点parent下标
+            Object e = queue[parent]; // 取出parent值
+            if (key.compareTo((E) e) >= 0) // 比较key>=父节点e。结束循环
                 break;
-            queue[k] = e;
-            k = parent;
+            queue[k] = e; // 赋值操作
+            k = parent; // k指针回溯操作
         }
         queue[k] = key;
     }
@@ -914,17 +926,19 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
             siftDownComparable(k, x);
     }
 
+    // 自顶向下
+    // 时间复杂度O(logn)
     private void siftDownComparable(int k, E x) {
-        Comparable<? super E> key = (Comparable<? super E>)x;
-        int half = size >>> 1;        // loop while a non-leaf
+        Comparable<? super E> key = (Comparable<? super E>)x; // x赋值给key
+        int half = size >>> 1;        // 当不是叶子节点时执行循环
         while (k < half) {
-            int child = (k << 1) + 1; // assume left child is least
-            Object c = queue[child];
-            int right = child + 1;
+            int child = (k << 1) + 1; // 左孩子
+            Object c = queue[child]; // 左孩子的值
+            int right = child + 1; // 右孩子
             if (right < size &&
-                ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0)
-                c = queue[child = right];
-            if (key.compareTo((E) c) <= 0)
+                ((Comparable<? super E>) c).compareTo((E) queue[right]) > 0) // 左孩子大于右孩子的情况
+                c = queue[child = right]; // right赋值给child,c的值变成右孩子的值
+            if (key.compareTo((E) c) <= 0) // 比较key和c的大小
                 break;
             queue[k] = c;
             k = child;
@@ -948,7 +962,9 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
         }
         queue[k] = x;
     }
-	// 堆化
+    // 构建最大堆
+    // 把数组看一个未调整完毕的堆
+    // 从第一个非叶子节点开始，从下往上、从右往左不断调用siftDown方法
     private void heapify() {
         for (int i = (size >>> 1) - 1; i >= 0; i--)
             siftDown(i, (E) queue[i]);
@@ -1084,6 +1100,7 @@ public class PriorityQueue<E> extends AbstractQueue<E> implements java.io.Serial
         }
     }
 }
+
 ```
 
 ### [删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
