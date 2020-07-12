@@ -447,10 +447,10 @@ System.out.println(" 3的位置 " + stack.search(3));
 
 **实战题目**
 
-- 20. 有效的括号
-- 155. 最小栈
-- 84. 柱状图中最大的矩形
-- 239. 滑动窗口最大值
+- 有效的括号
+- 最小栈
+- 柱状图中最大的矩形
+- 滑动窗口最大值
 
 ## 10.队列
 
@@ -546,13 +546,13 @@ System.out.println(deque);
 ### 用 add first 或 add last 这套新的 API 改写 Deque 的代码 
 
 ```java
-		Deque<String> deque = new LinkedList<String>();
-        deque.addFirst("a");    // 从头加
-        deque.addLast("b");     // 从尾加
-        deque.push("c");        // 从头加
-        deque.addFirst("d");    // 从头加
-        deque.addLast("e");     // 从尾加
-        deque.push("f");        // 从尾加
+Deque<String> deque = new LinkedList<String>();
+deque.addFirst("a");    // 从头加
+deque.addLast("b");     // 从尾加
+deque.push("c");        // 从头加
+deque.addFirst("d");    // 从头加
+deque.addLast("e");     // 从尾加
+deque.push("f");        // 从尾加
 ```
 
 
