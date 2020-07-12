@@ -1518,10 +1518,15 @@ class MyCircularDeque {
 （亚马逊、字节跳动、高盛集团、Facebook 在半年内面试常考）
 
 ```java
-package com.example.demo;
-
-import java.util.Stack;
-
+/*
+    一个数组表示柱子。问能接到多少水。
+    方法一：暴力
+    方法二：DP
+    方法三：栈
+        后面的柱子比前面的柱子低，是无法积水的。
+        用栈存储柱子下标。
+    方法四：双指针
+*/
 public class Solution {
     public int trap(int[] height) {
         // 存索引下标
@@ -1530,13 +1535,13 @@ public class Solution {
         while (current < height.length) {
             // 如果栈不空并且当前柱子高度大于栈顶柱子的高度，就进入循环
             while (!stack.empty() && height[current] > height[stack.peek()]) {
-                int top = stack.pop();                                                  // 取出栈顶元素的索引
-                if (stack.empty()) break;                                               // 栈空就结束
-                int distance = current - stack.peek() - 1;                              // 两个柱子之间的距离
-                int min = Math.min(height[current], height[stack.peek()] - height[top]);// 取当前柱子和前两个柱子高度差
+                int top = stack.pop();                                                      // 取出栈顶元素的索引
+                if (stack.empty()) break;                                                   // 栈空就结束
+                int distance = current - stack.peek() - 1;                                  // 两个柱子之间的距离
+                int min = Math.min(height[current], height[stack.peek()] - height[top]);    // 取当前柱子和前两个柱子高度差
                 sum += distance * min;
             }
-            stack.push(current++);                                                      // 当前柱子索引入栈
+            stack.push(current++);                                                          // 当前柱子索引入栈
         }
         return sum;
     }
