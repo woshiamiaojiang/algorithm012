@@ -1,5 +1,7 @@
 [TOC]
 
+笔记HTML版本http://htmlpreview.github.io/?https://github.com/woshiamiaojiang/algorithm012/blob/master/Week_02/README.html
+
 ## 学习笔记
 
 ### 1.哈希表
