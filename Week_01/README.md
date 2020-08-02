@@ -45,9 +45,9 @@ git config--unset--global 某个配置项
   - 生活例子：乒乓球、台球、游戏等等
 - 寻求反馈
 
-![image-20200712003607081](README.assets/image-20200712003607081.png)
+![image-20200712003607081](https://i.loli.net/2020/07/13/TMlm5xQGdPVKZ32.png)
 
-![image-20200712003613895](README.assets/image-20200712003613895.png)
+![image-20200712003613895](https://i.loli.net/2020/07/13/64YHeubM5ykdtFf.png)
 
 ## 4.训练环境配置
 
@@ -92,7 +92,7 @@ git config--unset--global 某个配置项
 
 2.为什么斐波那契时间复杂度是指数级
 
-<img src="README.assets/_CopyPix_1_4.png" alt="img" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/_CopyPix_1_4.png" alt="img" style="zoom:33%;" />
 
 3.思考题
 
@@ -105,7 +105,7 @@ git config--unset--global 某个配置项
 
 图示
 
-<img src="README.assets/_CopyPix_1_3.png" alt="img" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/_CopyPix_1_3.png" alt="img" style="zoom:33%;" />
 
 ArrayList源码
 
@@ -166,7 +166,7 @@ Array 实战题目
 
 双链表图示
 
-<img src="README.assets/image-20200712003425711.png" alt="image-20200712003425711" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200712003425711.png" alt="image-20200712003425711" style="zoom:33%;" />
 
 单链表源码
 
@@ -237,7 +237,7 @@ Java双向链表源码
 
 图示
 
-<img src="README.assets/_CopyPix_2.png" alt="img" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/_CopyPix_2.png" alt="img" style="zoom:33%;" />
 
 时间复杂度
 
@@ -256,7 +256,7 @@ Java双向链表源码
 
 **图示**
 
-![img](README.assets/_CopyPix_5.png)
+![img](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/OzFd4WxC6l1EDAM.png)
 
 **特点**
 
@@ -272,7 +272,7 @@ Java双向链表源码
 
 **Stack接口文档**
 
-<img src="README.assets/_CopyPix_15.png" alt="img" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/JcXuZwTlKRqe5dj.png" alt="img" style="zoom: 50%;" />
 
 后进先出更推荐 Deque
 
@@ -282,7 +282,7 @@ Deque<Integer> stack = new ArrayDeque<Integer>();
 
 API
 
-![img](README.assets/_CopyPix_2_3.png)
+![img](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/qOtHKuJDYn7yPeN.png)
 
 **Stack源码**
 
@@ -456,11 +456,11 @@ System.out.println(" 3的位置 " + stack.search(3));
 
 **图示**
 
-![img](README.assets/_CopyPix_6.png)
+![img](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/rhxEdLWGaJTuViZ.png)
 
 **普通队列**
 
-​	![image-20200712004735956](README.assets/image-20200712004735956.png)
+​	![image-20200712004735956](https://i.loli.net/2020/07/13/tLqDhbcxXowR4rQ.png)
 
 **Queue接口文档**
 
@@ -508,15 +508,15 @@ while(queue.size() > 0) {
 
 **图示**
 
-![img](README.assets/_CopyPix_8-1594486205863.png)
+![img](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/_CopyPix_8-1594486205863.png)
 
 **时间复杂度**
 
-![image-20200712005033574](README.assets/image-20200712005033574.png)
+![image-20200712005033574](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200712005033574.png)
 
 **Deque接口文档**
 
-![image-20200712005115158](README.assets/image-20200712005115158.png)
+![image-20200712005115158](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200712005115158.png)
 
 **示例代码**
 
@@ -539,7 +539,7 @@ System.out.println(deque);
 
 ## **绘制自己的数据结构和算法脑图**
 
-![image-20200712010209333](README.assets/image-20200712010209333.png)
+![image-20200712010209333](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200712010209333.png)
 
 ## 简单
 
