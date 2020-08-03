@@ -183,7 +183,6 @@ public class Solution {
 #### [102. 二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
 
 ```java
-
 /*
     把二叉树的每层放在一个数组中打印出来
     1.BFS
@@ -191,30 +190,19 @@ public class Solution {
 
 */
 class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-
-        Queue<TreeNode> queue = new ArrayDeque<>();
-        if (root != null) {
-            queue.add(root);
-        }
-        while (!queue.isEmpty()) {
-            int n = queue.size();
-            List<Integer> level = new ArrayList<>();
-            for (int i = 0; i < n; i++) { 
-                TreeNode node = queue.poll();
-                level.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
-            }
-            res.add(level);
-        }
-
+        dfs(root, 1);
         return res;
+    }
+
+    void dfs(TreeNode root, int level) {
+        if (root == null) return;
+        if (res.size() < level) res.add(new ArrayList<Integer>());
+        res.get(level - 1).add(root.val);
+        dfs(root.left, level + 1);
+        dfs(root.right, level + 1);
     }
 }
 ```
@@ -222,32 +210,33 @@ class Solution {
 #### [433. 最小基因变化](https://leetcode-cn.com/problems/minimum-genetic-mutation/)
 
 ```java
-class Solution {
+public class Solution {
     int res = Integer.MAX_VALUE;
+
     public int minMutation(String start, String end, String[] bank) {
-        dfs(new HashSet<String>(), 0, start, end, bank);
+        dfs(new HashSet<>(), 0, start, end, bank);
         return (res == Integer.MAX_VALUE) ? -1 : res;
     }
-    private void dfs (HashSet<String> step, int n, String temp, String end, String[] bank){
-        if(n>=res) return;
-        if(temp.equals(end)){
-            res = Math.min(n,res);
-            return;
-        }
-        char[] c = temp.toCharArray();
-        for(String s:bank){
-            char[] ss = s.toCharArray();
-            int num = 0;
-            for(int i = 0;i<8;i++){
-                if(c[i]!=ss[i]) num++;
-            }
-            if(num == 1 &&!step.contains(s)){
-                //这个可以是下一个分支
-                step.add(s);
-                dfs(step,n+1,s,end,bank);
-                step.remove(s);
+
+    private void dfs(HashSet<String> steps, int cnt,
+                     String cur, String end, String[] bank) {
+        if (cnt >= res) return;
+        if (cur.equals(end)) res = Math.min(cnt, res); // 当前值等于目标值，取最小的那个
+        for (String str : bank) {
+            int diff = 0;
+            for (int i = 0; i < str.length(); i++)
+                if (cur.charAt(i) != str.charAt(i) && ++diff > 1)
+                    break; // 变化步骤超过1，跳过
+            if (diff == 1 && !steps.contains(str)) {
+                steps.add(str);
+                dfs(steps, cnt + 1, str, end, bank);
+                steps.remove(str);
             }
         }
+    }
+
+    public static void main(String[] args){
+        new Solution().minMutation("AACCGGTT","AAACGGTA", new String[]{"AACCGGTA", "AACCGCTA", "AAACGGTA"});
     }
 }
 ```
@@ -255,71 +244,30 @@ class Solution {
 #### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
 
 ```java
-/*
-    生成所有n个有效括号
-        输入：n = 3
-        输出：[
-               "((()))",
-               "(()())",
-               "(())()",
-               "()(())",
-               "()()()"
-             ]
- */
-
- // 递归
-// public class Solution {
-
-//     ArrayList<String> res = new ArrayList<>();
-
-//     public List<String> generateParenthesis(int n) {
-//         // 初始条件
-//         generate(0, 0, n, "");
-//         // 结束条件
-//         return res;
-//     }
-
-//     // 处理
-//     private void generate(int leftCnt, int rightCnt, int n, String s) {
-//         // 下钻
-//         // 如果左、右括号等于n个，将值放入结果中
-//         if (leftCnt == n && rightCnt == n) {
-//             res.add(s);
-//             return;
-//         }
-//         // 只要左括号没有达到n个，就可以加
-//         if (leftCnt < n) generate(leftCnt + 1, rightCnt, n, s + "(");
-//         // 右括号数量如果小于左括号，就可以加
-//         if (rightCnt < leftCnt) generate(leftCnt, rightCnt + 1, n, s + ")");
-//         // 清除全局临时变量
-//     }
-
-//     public static void main(String[] args) {
-//         System.out.println(new Solution().generateParenthesis(3));
-//     }
-// }
-
 // 递归。确保括号有效性。只要要求左括号先行于右括号。
 class Solution {
+
     List<String> res = new ArrayList<>();
+
     public List<String> generateParenthesis(int n) {
         dfs(n, n, "");
         return res;
     }
 
-    private void dfs(int left, int right, String curStr) {
-        if (left == 0 && right == 0) { // 左右括号都不剩余了，递归终止
-            res.add(curStr);
+    private void dfs(int left, int right, String str) {
+        if (left == 0 && right == 0) { // 结束条件：左右括号都不剩余了
+            res.add(str);
             return;
         }
-        // 第一次会进去。第二次会有两个分叉
+        // 下钻，第一次会进去。第二次会有两个分叉
         if (left > 0) { // 如果左括号还剩余的话，可以拼接左括号
-            dfs(left - 1, right, curStr + "(");
+            dfs(left - 1, right, str + "(");
         }
         // 第一次是进不去的，因为左右是相等的。第二次进入后，左右等号数量又相等了。
         if (right > left) { // 如果右括号剩余多于左括号剩余的话，可以拼接右括号
-            dfs(left, right - 1, curStr + ")");
+            dfs(left, right - 1, str + ")");
         }
+        // 清除全局临时变量
     }
 }
 ```
@@ -328,23 +276,20 @@ class Solution {
 
 ```java
 class Solution {
+
+    List<Integer> res = new ArrayList<>();
+
     public List<Integer> largestValues(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        levelOrder(root, res, 0);
+        helper(root, res, 0);
         return res;
     }
-    
-    public void levelOrder(TreeNode root, List<Integer> res, int level) {//当前root是第level层
-        if(root==null) return;
-        if(level>=res.size()) {res.add(root.val);}
-        else {
-            int max_value = Math.max(res.get(level), root.val);
-            res.set(level, max_value);
-        }
-        levelOrder(root.left,res,level+1);
-        levelOrder(root.right,res,level+1);
 
-
+    public void helper(TreeNode cur, List<Integer> res, int level) {
+        if (cur == null) return;
+        if (level >= res.size()) res.add(cur.val); // 第一个数直接添加
+        else res.set(level, Math.max(res.get(level), cur.val)); // 层级有值时，比较当前值与新值的大小
+        helper(cur.left, res, level + 1);
+        helper(cur.right, res, level + 1);
     }
 }
 ```
@@ -373,6 +318,28 @@ class Solution {
 求图中的最小生成树
 
 求哈夫曼编码
+
+#### [322. 零钱兑换](https://leetcode-cn.com/problems/coin-change/)
+
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount+1];
+        for(int i=0; i<amount+1; i++) {
+            dp[i] = i == 0 ? 0 : amount+1;
+            for(int coin : coins) {
+                if(i >= coin) {
+                    dp[i] = Math.min(dp[i-coin] + 1, dp[i]);
+                }
+            }
+        }
+        return dp[amount] == amount+1 ? -1 : dp[amount];
+    }
+}
+
+```
+
+
 
 ## 二分查找
 
@@ -418,11 +385,12 @@ class Solution {
 class Solution {
     public boolean lemonadeChange(int[] bills) {
         int five = 0, ten = 0;
-        for (int i : bills) {
-            if (i == 5) five++;
-            else if (i == 10) {five--; ten++;}
-            else if (ten > 0) {ten--; five--;} 
-            else five -= 3;
+        for (int bill : bills) {
+            switch (bill) {
+                case 5: five++; break;
+                case 10: five--; ten++; break;
+                case 20: if(ten > 0) {ten--;five--;} else { five-=3;}break;
+            }
             if (five < 0) return false;
         }
         return true;
@@ -433,13 +401,14 @@ class Solution {
 #### [122. 买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
 
 ```java
+// 贪心即可
 public class Solution {
     public int maxProfit(int[] prices) {
-        int total = 0;
-        for (int i=0; i< prices.length-1; i++) {
-            if (prices[i+1]>prices[i]) total += prices[i+1]-prices[i];
+        int res = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            if (prices[i + 1] > prices[i]) res += prices[i + 1] - prices[i];
         }
-        return total;
+        return res;
     }
 }
 ```
@@ -447,20 +416,14 @@ public class Solution {
 #### [455. 分发饼干](https://leetcode-cn.com/problems/assign-cookies/)
 
 ```java
+// 双指针
 class Solution {
-    //贪心的思想是，用尽量小的饼干去满足小需求的孩子，所以需要进行排序先
-    public int findContentChildren(int[] g, int[] s) {
-        int child = 0;
-        int cookie = 0;
-        Arrays.sort(g);  //先将饼干 和 孩子所需大小都进行排序
-        Arrays.sort(s);
-        while (child < g.length && cookie < s.length ){ //当其中一个遍历就结束
-            if (g[child] <= s[cookie]){ //当用当前饼干可以满足当前孩子的需求，可以满足的孩子数量+1
-                child++;
-            }
-            cookie++; // 饼干只可以用一次，因为饼干如果小的话，就是无法满足被抛弃，满足的话就是被用了
-        }
-        return child; 
+    public int findContentChildren(int[] g, int[] s) { // g小孩胃口，s饼干
+        Arrays.sort(g); Arrays.sort(s);
+        int res = 0;
+        for (int i = 0, j = 0; j < s.length; j++) // i小孩子胃口，j饼干尺寸
+            if (i < g.length && s[j] >= g[i]) { res++; i++; } // 先喂饱胃口最小的孩子
+        return res;
     }
 }
 ```
@@ -470,39 +433,28 @@ class Solution {
 ```java
 class Solution {
     public int robotSim(int[] commands, int[][] obstacles) {
-        int[] dx = new int[]{0, 1, 0, -1};
-        int[] dy = new int[]{1, 0, -1, 0};
-        int x = 0, y = 0, di = 0;
-
-        // Encode obstacles (x, y) as (x+30000) * (2^16) + (y+30000)
-        Set<Long> obstacleSet = new HashSet();
-        for (int[] obstacle: obstacles) {
-            long ox = (long) obstacle[0] + 30000;
-            long oy = (long) obstacle[1] + 30000;
-            obstacleSet.add((ox << 16) + oy);
+        int[][] fangxiang = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        Set<String> set = new HashSet<>();
+        int fx = 0, x = 0, y = 0, res = 0;
+        for (int[] o : obstacles) {
+            set.add(o[0] + " " + o[1]);
         }
-
-        int ans = 0;
-        for (int cmd: commands) {
-            if (cmd == -2)  //left
-                di = (di + 3) % 4;
-            else if (cmd == -1)  //right
-                di = (di + 1) % 4;
-            else {
-                for (int k = 0; k < cmd; ++k) {
-                    int nx = x + dx[di];
-                    int ny = y + dy[di];
-                    long code = (((long) nx + 30000) << 16) + ((long) ny + 30000);
-                    if (!obstacleSet.contains(code)) {
-                        x = nx;
-                        y = ny;
-                        ans = Math.max(ans, x*x + y*y);
+        for (int c : commands) {
+            switch (c) {
+                case (-1):
+                    fx = (fx + 1) % 4; break;
+                case (-2):
+                    fx = (fx + 3) % 4; break;
+                default:
+                    for (int i = 0; i < c; i++) {
+                        if (set.contains((x + fangxiang[fx][0]) + " " + (y + fangxiang[fx][1]))) break;
+                        x += fangxiang[fx][0];
+                        y += fangxiang[fx][1];
+                        res = Math.max(res, x * x + y * y);
                     }
-                }
             }
         }
-
-        return ans;
+        return res;
     }
 }
 ```
@@ -613,24 +565,10 @@ class Solution {
 
 ```java
 class Solution {
-    public boolean canJump(int[] nums) {
-        int n=1;
-        for(int i=nums.length-2;i>=0;i--){
-            if(nums[i]>=n)
-            {
-                n=1;
-            }
-            else
-            {
-                n++;
-            }
-            if(i==0&&n>1)
-            {
-                return false;
-            }
-        }
-        return true;
-        
+    public boolean canJump(int[] a) {
+        int max = 0; // 可以到达的最大下标。max>=i最大下标必须能包含i遍历路径
+        for (int i = 0; i < a.length && max >= i; i++) max = Math.max(max, i + a[i]);
+        return max >= a.length - 1;
     }
 }
 ```
