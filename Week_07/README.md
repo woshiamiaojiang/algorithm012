@@ -2,25 +2,25 @@
 
 ### 复习树
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823144814151.png" alt="image-20200823144814151" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823144814151.png" alt="image-20200823144814151" style="zoom: 50%;" />
 
 ### 复习二叉搜索树
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823144845357.png" alt="image-20200823144845357" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823144845357.png" alt="image-20200823144845357" style="zoom: 50%;" />
 
 ### 字典树
 
 #### 基本结构
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823144918313.png" alt="image-20200823144918313" style="zoom: 67%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823144918313.png" alt="image-20200823144918313" style="zoom: 67%;" />
 
 #### 基本性质
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823144936009.png" alt="image-20200823144936009" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823144936009.png" alt="image-20200823144936009" style="zoom: 50%;" />
 
 #### 内部实现
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145011664.png" alt="image-20200823145011664" style="zoom:67%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145011664.png" alt="image-20200823145011664" style="zoom:67%;" />
 
 #### 核心思想
 
@@ -167,7 +167,7 @@ private boolean existRecursive(char[][] board, int row, int col, String word, in
 
 ### 基本操作
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145254939.png" alt="image-20200823145254939" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145254939.png" alt="image-20200823145254939" style="zoom: 50%;" />
 
 ### 并查集图形解释
 
@@ -175,29 +175,29 @@ private boolean existRecursive(char[][] board, int row, int col, String word, in
 
 每个元素拥有parent数组指向自己
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145329461.png" alt="image-20200823145329461" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145329461.png" alt="image-20200823145329461" style="zoom:33%;" />
 
 #### 查询
 
 对任何一个元素，看他的parent再看他的parent，直到parent等于自己找到领头元素
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145345729.png" alt="image-20200823145345729" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145345729.png" alt="image-20200823145345729" style="zoom:33%;" />
 
 #### 合并
 
 把e的parent指向a
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145406269.png" alt="image-20200823145406269" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145406269.png" alt="image-20200823145406269" style="zoom:33%;" />
 
 #### 路径压缩
 
 把b c d的parent都指向a
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145419922.png" alt="image-20200823145419922" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145419922.png" alt="image-20200823145419922" style="zoom:33%;" />
 
 ### Java代码实现并查集
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145445000.png" alt="image-20200823145445000" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145445000.png" alt="image-20200823145445000" style="zoom: 50%;" />
 
 ### 作业
 
@@ -288,11 +288,11 @@ class Solution {
 
 ### 零钱置换
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145740758.png" alt="image-20200823145740758" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145740758.png" alt="image-20200823145740758" style="zoom: 50%;" />
 
 ### 剪枝
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823145759660.png" alt="image-20200823145759660" style="zoom:33%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823145759660.png" alt="image-20200823145759660" style="zoom:33%;" />
 
 ### 回溯
 
@@ -452,9 +452,9 @@ class Solution {
 
 ### 双向连通图
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823150242631.png" alt="image-20200823150242631" style="zoom:50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823150242631.png" alt="image-20200823150242631" style="zoom:50%;" />
 
-<img src="C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823150250741.png" alt="image-20200823150250741" style="zoom: 50%;" />
+<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823150250741.png" alt="image-20200823150250741" style="zoom: 50%;" />
 
 ### 实战题目
 
@@ -524,7 +524,7 @@ public class Solution {
 
 ### 估价函数
 
-![image-20200823150704155](C:\Users\Aspirin\AppData\Roaming\Typora\typora-user-images\image-20200823150704155.png)
+![image-20200823150704155](https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/image-20200823150704155.png)
 
 ### 实战题目
 
