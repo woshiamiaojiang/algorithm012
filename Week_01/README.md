@@ -59,16 +59,13 @@ git config--unset--global 某个配置项
   - Google Java Style Guide
 - LeetCode.cn
 - [刻意练习]编程指法
-  - home/end
-    	
+  - home/end	
     - 行头行尾
-  - google
-    	
+  - google	
     - top tips vs code
       
     - vscode 使用技巧
-  - 选中一个单词
-    	
+  - 选中一个单词	
     - Ctrl + Shift + ->
 - 自顶向下的编程方式
   - 金字塔写作方式
