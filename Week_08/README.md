@@ -238,7 +238,7 @@ class LRUCache {
 
 ### 总览
 
-<img src="https://hexo-1257630696.cos.ap-singapore.myqcloud.com/img/20200830130917.png" alt="image-20200830125115823" style="zoom:50%;" />			
+<img src="C:\App\Typora\assets\20200830130917.png" alt="image-20200830125115823" style="zoom:50%;" />			
 
 ### 时间复杂度
 

@@ -2690,7 +2690,7 @@ class Solution {
 
 方法一：
 
-<img src="README.assets/image-20200718165014860.png" alt="image-20200718165014860" style="zoom:50%;" />
+<img src="README.assets/image-20200718165014860.png" alt="image-20200718165014860" style="zoom: 67%;" />
 
 ```java
 /*
@@ -2717,7 +2717,7 @@ class Solution {
 
 方法二：推荐
 
-<img src="README.assets/image-20200718165346816.png" alt="image-20200718165346816" style="zoom:50%;" />
+<img src="README.assets/image-20200718165346816.png" alt="image-20200718165346816" style="zoom: 67%;" />
 
 
 
@@ -3360,7 +3360,7 @@ public class Solution {
 
 #### 实战题目
 
-#### <a name=200>[200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
+#### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
 
 - 连通图个数：[ https://leetcode-cn.com/problems/number-of-islands/](https://leetcode-cn.com/problems/number-of-islands/)
 - 拓扑排序（Topological Sorting）：[ https://zhuanlan.zhihu.com/p/34871092](https://zhuanlan.zhihu.com/p/34871092)
